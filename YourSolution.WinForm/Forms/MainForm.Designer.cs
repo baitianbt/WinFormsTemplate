@@ -15,112 +15,133 @@ namespace YourSolution.WinForm.Forms
 
         private void InitializeComponent()
         {
-            this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.managementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.userManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            
-            this.menuStrip.SuspendLayout();
-            this.statusStrip.SuspendLayout();
-            this.SuspendLayout();
-
+            panelHeader = new Panel();
+            labelTitle = new Label();
+            panelAside = new Panel();
+            treeViewMenu = new TreeView();
+            panelMain = new Panel();
+            panelFooter = new Panel();
+            labelStatus = new Label();
+            panelHeader.SuspendLayout();
+            panelAside.SuspendLayout();
+            panelFooter.SuspendLayout();
+            SuspendLayout();
             // 
-            // menuStrip
+            // panelHeader
             // 
-            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.fileToolStripMenuItem,
-                this.managementToolStripMenuItem});
-            this.menuStrip.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(800, 24);
-
+            panelHeader.BackColor = Color.FromArgb(0, 122, 204);
+            panelHeader.Controls.Add(labelTitle);
+            panelHeader.Dock = DockStyle.Top;
+            panelHeader.Location = new Point(0, 0);
+            panelHeader.Margin = new Padding(4, 4, 4, 4);
+            panelHeader.Name = "panelHeader";
+            panelHeader.Size = new Size(1437, 80);
+            panelHeader.TabIndex = 2;
             // 
-            // fileToolStripMenuItem
+            // labelTitle
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.viewLogToolStripMenuItem,
-                new System.Windows.Forms.ToolStripSeparator(),
-                this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Text = "File";
-
+            labelTitle.Dock = DockStyle.Fill;
+            labelTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            labelTitle.ForeColor = Color.White;
+            labelTitle.Location = new Point(0, 0);
+            labelTitle.Margin = new Padding(4, 0, 4, 0);
+            labelTitle.Name = "labelTitle";
+            labelTitle.Size = new Size(1437, 80);
+            labelTitle.TabIndex = 0;
+            labelTitle.Text = "System Management";
+            labelTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // viewLogToolStripMenuItem
+            // panelAside
             // 
-            this.viewLogToolStripMenuItem.Name = "viewLogToolStripMenuItem";
-            this.viewLogToolStripMenuItem.Text = "View Log";
-            this.viewLogToolStripMenuItem.Click += new System.EventHandler(this.viewLogToolStripMenuItem_Click);
-
+            panelAside.BackColor = Color.FromArgb(45, 45, 48);
+            panelAside.Controls.Add(treeViewMenu);
+            panelAside.Dock = DockStyle.Left;
+            panelAside.Location = new Point(0, 80);
+            panelAside.Margin = new Padding(4, 4, 4, 4);
+            panelAside.Name = "panelAside";
+            panelAside.Size = new Size(257, 794);
+            panelAside.TabIndex = 1;
             // 
-            // exitToolStripMenuItem
+            // treeViewMenu
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-
+            treeViewMenu.BackColor = Color.FromArgb(45, 45, 48);
+            treeViewMenu.BorderStyle = BorderStyle.None;
+            treeViewMenu.Dock = DockStyle.Fill;
+            treeViewMenu.Font = new Font("Segoe UI", 10F);
+            treeViewMenu.ForeColor = Color.White;
+            treeViewMenu.Indent = 20;
+            treeViewMenu.ItemHeight = 30;
+            treeViewMenu.Location = new Point(0, 0);
+            treeViewMenu.Margin = new Padding(4, 4, 4, 4);
+            treeViewMenu.Name = "treeViewMenu";
+            treeViewMenu.ShowLines = false;
+            treeViewMenu.Size = new Size(257, 794);
+            treeViewMenu.TabIndex = 0;
+            treeViewMenu.AfterSelect += treeViewMenu_AfterSelect;
             // 
-            // managementToolStripMenuItem
+            // panelMain
             // 
-            this.managementToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.userManagementToolStripMenuItem});
-            this.managementToolStripMenuItem.Name = "managementToolStripMenuItem";
-            this.managementToolStripMenuItem.Text = "Management";
-
+            panelMain.BackColor = Color.White;
+            panelMain.Dock = DockStyle.Fill;
+            panelMain.Location = new Point(257, 80);
+            panelMain.Margin = new Padding(4, 4, 4, 4);
+            panelMain.Name = "panelMain";
+            panelMain.Size = new Size(1180, 794);
+            panelMain.TabIndex = 0;
             // 
-            // userManagementToolStripMenuItem
+            // panelFooter
             // 
-            this.userManagementToolStripMenuItem.Name = "userManagementToolStripMenuItem";
-            this.userManagementToolStripMenuItem.Text = "User Management";
-            this.userManagementToolStripMenuItem.Click += new System.EventHandler(this.userManagementToolStripMenuItem_Click);
-
+            panelFooter.BackColor = Color.FromArgb(45, 45, 48);
+            panelFooter.Controls.Add(labelStatus);
+            panelFooter.Dock = DockStyle.Bottom;
+            panelFooter.Location = new Point(0, 874);
+            panelFooter.Margin = new Padding(4, 4, 4, 4);
+            panelFooter.Name = "panelFooter";
+            panelFooter.Size = new Size(1437, 40);
+            panelFooter.TabIndex = 3;
             // 
-            // statusStrip
+            // labelStatus
             // 
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 428);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(800, 22);
-
-            // 
-            // toolStripStatusLabel
-            // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Text = "Ready";
-
+            labelStatus.Dock = DockStyle.Fill;
+            labelStatus.Font = new Font("Segoe UI", 9F);
+            labelStatus.ForeColor = Color.White;
+            labelStatus.Location = new Point(0, 0);
+            labelStatus.Margin = new Padding(4, 0, 4, 0);
+            labelStatus.Name = "labelStatus";
+            labelStatus.Padding = new Padding(13, 0, 0, 0);
+            labelStatus.Size = new Size(1437, 40);
+            labelStatus.TabIndex = 0;
+            labelStatus.Text = "Ready";
+            labelStatus.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.menuStrip);
-            this.Controls.Add(this.statusStrip);
-            this.IsMdiContainer = true;
-            this.MainMenuStrip = this.menuStrip;
-            this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "System Management";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            
-            this.menuStrip.ResumeLayout(false);
-            this.statusStrip.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1437, 914);
+            Controls.Add(panelMain);
+            Controls.Add(panelAside);
+            Controls.Add(panelHeader);
+            Controls.Add(panelFooter);
+            Margin = new Padding(4, 4, 4, 4);
+            MinimumSize = new Size(1023, 784);
+            Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "System Management";
+            WindowState = FormWindowState.Maximized;
+            Load += MainForm_Load;
+            panelHeader.ResumeLayout(false);
+            panelAside.ResumeLayout(false);
+            panelFooter.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
-        private System.Windows.Forms.MenuStrip menuStrip;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewLogToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem managementToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem userManagementToolStripMenuItem;
-        private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.Panel panelHeader;
+        private System.Windows.Forms.Label labelTitle;
+        private System.Windows.Forms.Panel panelAside;
+        private System.Windows.Forms.TreeView treeViewMenu;
+        private System.Windows.Forms.Panel panelMain;
+        private System.Windows.Forms.Panel panelFooter;
+        private System.Windows.Forms.Label labelStatus;
     }
 } 
