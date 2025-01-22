@@ -17,7 +17,7 @@ namespace YourSolution.WinForm
         static void Main()
         {
             // 配置NLog
-            LogManager.LoadConfiguration("nlog.config");
+            LogManager.Setup().LoadConfigurationFromFile("nlog.config");
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
