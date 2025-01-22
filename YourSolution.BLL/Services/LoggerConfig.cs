@@ -21,7 +21,7 @@ namespace YourSolution.BLL.Services
                 .WriteTo.File(
                     Path.Combine(logPath, "log-.txt"),
                     rollingInterval: RollingInterval.Day,
-                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message:lj}{NewLine}{Exception}")
                 .WriteTo.SQLite(
                     dbPath,
                     tableName: "Logs",
