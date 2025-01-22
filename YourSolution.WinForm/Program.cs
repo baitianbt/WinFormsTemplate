@@ -17,7 +17,7 @@ namespace YourSolution.WinForm
         static void Main()
         {
             // 配置NLog
-            LogManager.Setup().LoadConfigurationFromFile("nlog.config");
+            LogManager.LoadConfiguration("nlog.config");
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
@@ -42,6 +42,7 @@ namespace YourSolution.WinForm
             services.AddScoped<LoginForm>();
             services.AddScoped<MainForm>();
             services.AddScoped<UserManagementForm>();
+            services.AddTransient<LogViewerForm>();
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)

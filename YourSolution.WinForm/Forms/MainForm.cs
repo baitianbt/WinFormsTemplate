@@ -22,5 +22,12 @@ namespace YourSolution.WinForm.Forms
             userManagementForm.MdiParent = this;
             userManagementForm.Show();
         }
+
+        private void viewLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var logViewerForm = new LogViewerForm();
+            logViewerForm.MdiParent = this;
+            logViewerForm.Show();
+        }
     }
 } 

@@ -8,7 +8,8 @@ namespace YourSolution.DAL
     public class UserRepository : IBaseRepository<User>
     {
         // 模拟数据库，实际项目中应该使用真实数据库
-        private static List<User> _users = new List<User>();
+        private static List<User> _users = new List<User>() { new User() { Id =1, Username = "1", Password = "1",IsActive =true} };
+
         
         public User GetById(int id)
         {
