@@ -20,6 +20,11 @@ namespace YourSolution.WinForm.Forms
             this.tscboLogType = new System.Windows.Forms.ToolStripComboBox();
             this.tsbtnRefresh = new System.Windows.Forms.ToolStripButton();
             this.tsbtnClear = new System.Windows.Forms.ToolStripButton();
+            this.dtpStartDate = new DateTimePicker();
+            this.dtpEndDate = new DateTimePicker();
+            this.cboLogLevel = new ComboBox();
+            this.txtSearch = new TextBox();
+            this.btnSearch = new Button();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
 
@@ -29,7 +34,12 @@ namespace YourSolution.WinForm.Forms
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.tscboLogType,
                 this.tsbtnRefresh,
-                this.tsbtnClear});
+                this.tsbtnClear,
+                new ToolStripControlHost(dtpStartDate),
+                new ToolStripControlHost(dtpEndDate),
+                new ToolStripControlHost(cboLogLevel),
+                new ToolStripControlHost(txtSearch),
+                new ToolStripControlHost(btnSearch)});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(800, 25);
@@ -77,6 +87,43 @@ namespace YourSolution.WinForm.Forms
             this.rtbLogContent.Font = new System.Drawing.Font("Consolas", 9F);
 
             // 
+            // dtpStartDate
+            // 
+            this.dtpStartDate.Format = DateTimePickerFormat.Short;
+            this.dtpStartDate.Location = new Point(10, 3);
+            this.dtpStartDate.Size = new Size(100, 23);
+
+            // 
+            // dtpEndDate
+            // 
+            this.dtpEndDate.Format = DateTimePickerFormat.Short;
+            this.dtpEndDate.Location = new Point(120, 3);
+            this.dtpEndDate.Size = new Size(100, 23);
+
+            // 
+            // cboLogLevel
+            // 
+            this.cboLogLevel.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cboLogLevel.Items.AddRange(new object[] { "All", "Information", "Warning", "Error" });
+            this.cboLogLevel.Location = new Point(230, 3);
+            this.cboLogLevel.Size = new Size(100, 23);
+            this.cboLogLevel.SelectedIndex = 0;
+
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new Point(340, 3);
+            this.txtSearch.Size = new Size(150, 23);
+
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Text = "Search";
+            this.btnSearch.Location = new Point(500, 3);
+            this.btnSearch.Size = new Size(70, 23);
+            this.btnSearch.Click += new EventHandler(btnSearch_Click);
+
+            // 
             // LogViewerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -98,5 +145,10 @@ namespace YourSolution.WinForm.Forms
         private System.Windows.Forms.ToolStripComboBox tscboLogType;
         private System.Windows.Forms.ToolStripButton tsbtnRefresh;
         private System.Windows.Forms.ToolStripButton tsbtnClear;
+        private DateTimePicker dtpStartDate;
+        private DateTimePicker dtpEndDate;
+        private ComboBox cboLogLevel;
+        private TextBox txtSearch;
+        private Button btnSearch;
     }
 } 

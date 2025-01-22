@@ -1,18 +1,28 @@
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using YourSolution.BLL.Interfaces;
 
 namespace YourSolution.WinForm.Forms
 {
     public partial class LogViewerForm : Form
     {
+        private readonly ILogQueryService _logQueryService;
         private string _logBasePath;
         private string _currentLogFile;
 
-        public LogViewerForm()
+        public LogViewerForm(ILogQueryService logQueryService)
         {
             InitializeComponent();
+            _logQueryService = logQueryService;
             _logBasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+            
+            // 设置日期选择器的初始值
+            dtpStartDate.Value = DateTime.Today;
+            dtpEndDate.Value = DateTime.Today.AddDays(1).AddSeconds(-1);
         }
 
         private void LogViewerForm_Load(object sender, EventArgs e)
@@ -64,7 +74,7 @@ namespace YourSolution.WinForm.Forms
                     logPath = Path.Combine(logPath, "Error");
                 }
 
-                _currentLogFile = Path.Combine(logPath, $"{DateTime.Now:yyyy-MM-dd}.log");
+                _currentLogFile = Path.Combine(logPath, $"log-{DateTime.Now:yyyyMMdd}.txt");
 
                 if (!File.Exists(_currentLogFile))
                 {
@@ -110,6 +120,65 @@ namespace YourSolution.WinForm.Forms
             }
             rtbLogContent.SelectionStart = rtbLogContent.TextLength;
             rtbLogContent.SelectionLength = 0;
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var logs = _logQueryService.QueryLogs(
+                    startDate: dtpStartDate.Value,
+                    endDate: dtpEndDate.Value,
+                    level: cboLogLevel.SelectedIndex == 0 ? null : cboLogLevel.Text,
+                    searchText: string.IsNullOrWhiteSpace(txtSearch.Text) ? null : txtSearch.Text
+                );
+
+                DisplayLogs(logs);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error querying logs: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void DisplayLogs(IEnumerable<LogEntry> logs)
+        {
+            rtbLogContent.Clear();
+            foreach (var log in logs)
+            {
+                rtbLogContent.SelectionStart = rtbLogContent.TextLength;
+                rtbLogContent.SelectionLength = 0;
+
+                // 添加时间戳
+                rtbLogContent.SelectionColor = Color.Black;
+                rtbLogContent.AppendText($"{log.Timestamp:yyyy-MM-dd HH:mm:ss} ");
+
+                // 添加日志级别（带颜色）
+                Color levelColor = log.Level switch
+                {
+                    "ERROR" => Color.Red,
+                    "WARNING" => Color.Orange,
+                    "INFORMATION" => Color.Green,
+                    _ => Color.Black
+                };
+                rtbLogContent.SelectionColor = levelColor;
+                rtbLogContent.AppendText($"[{log.Level}] ");
+
+                // 添加消息
+                rtbLogContent.SelectionColor = Color.Black;
+                rtbLogContent.AppendText($"{log.Message}\n");
+
+                // 如果有异常，添加异常信息
+                if (!string.IsNullOrEmpty(log.Exception))
+                {
+                    rtbLogContent.SelectionColor = Color.Red;
+                    rtbLogContent.AppendText($"{log.Exception}\n");
+                }
+            }
+
+            rtbLogContent.SelectionStart = 0;
+            rtbLogContent.ScrollToCaret();
         }
     }
 } 

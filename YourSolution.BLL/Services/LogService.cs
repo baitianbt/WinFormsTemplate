@@ -1,4 +1,4 @@
-using NLog;
+using Serilog;
 using YourSolution.BLL.Interfaces;
 
 namespace YourSolution.BLL.Services
@@ -9,17 +9,17 @@ namespace YourSolution.BLL.Services
 
         public LogService()
         {
-            _logger = LogManager.GetCurrentClassLogger();
+            _logger = LoggerConfig.CreateLogger();
         }
 
         public void LogInfo(string message)
         {
-            _logger.Info(message);
+            _logger.Information(message);
         }
 
         public void LogWarning(string message)
         {
-            _logger.Warn(message);
+            _logger.Warning(message);
         }
 
         public void LogError(string message)
@@ -30,7 +30,7 @@ namespace YourSolution.BLL.Services
         public void LogError(Exception ex, string message = null)
         {
             if (string.IsNullOrEmpty(message))
-                _logger.Error(ex);
+                _logger.Error(ex, "An error occurred");
             else
                 _logger.Error(ex, message);
         }

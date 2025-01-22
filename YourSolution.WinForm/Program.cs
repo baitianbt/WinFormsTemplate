@@ -6,7 +6,7 @@ using YourSolution.DAL;
 using YourSolution.DAL.Interfaces;
 using YourSolution.Model;
 using YourSolution.WinForm.Forms;
-using NLog;
+
 
 namespace YourSolution.WinForm
 {
@@ -16,8 +16,7 @@ namespace YourSolution.WinForm
 
         static void Main()
         {
-            // 配置NLog
-            LogManager.LoadConfiguration("nlog.config");
+           
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
@@ -39,10 +38,11 @@ namespace YourSolution.WinForm
             services.AddScoped<IBaseRepository<User>, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<ILogService, LogService>();
+            services.AddSingleton<ILogQueryService, LogQueryService>();
             services.AddScoped<LoginForm>();
             services.AddScoped<MainForm>();
             services.AddScoped<UserManagementForm>();
-            services.AddTransient<LogViewerForm>();
+            services.AddScoped<LogViewerForm>();
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)

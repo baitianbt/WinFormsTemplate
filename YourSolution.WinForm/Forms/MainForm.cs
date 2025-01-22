@@ -25,7 +25,7 @@ namespace YourSolution.WinForm.Forms
 
         private void viewLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var logViewerForm = new LogViewerForm();
+            var logViewerForm = Program.ServiceProvider.GetRequiredService<LogViewerForm>();
             logViewerForm.MdiParent = this;
             logViewerForm.Show();
         }
