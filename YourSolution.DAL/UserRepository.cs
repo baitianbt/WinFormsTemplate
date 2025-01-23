@@ -2,6 +2,7 @@ using YourSolution.Model;
 using YourSolution.DAL.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace YourSolution.DAL
 {
@@ -46,6 +47,16 @@ namespace YourSolution.DAL
             {
                 _users.Remove(user);
             }
+        }
+
+        public IEnumerable<User> Find(Expression<Func<User, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveChanges()
+        {
+            throw new NotImplementedException();
         }
     }
 } 

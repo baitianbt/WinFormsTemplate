@@ -6,7 +6,9 @@ using YourSolution.DAL;
 using YourSolution.DAL.Interfaces;
 using YourSolution.Model;
 using YourSolution.WinForm.Forms;
-
+using System.IO;
+using Microsoft.EntityFrameworkCore;
+using YourSolution.DAL.Repositories;
 
 namespace YourSolution.WinForm
 {
@@ -35,14 +37,30 @@ namespace YourSolution.WinForm
 
         private static void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IBaseRepository<User>, UserRepository>();
+            // 配置数据库
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "app.db");
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlite($"Data Source={dbPath}"));
+
+            // 注册仓储
+            services.AddScoped<IBaseRepository<User>, DAL.UserRepository>();
+            services.AddScoped<IBaseRepository<Role>, RoleRepository>();
+            services.AddScoped<IBaseRepository<Permission>, PermissionRepository>();
+
+            // 注册服务
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IPermissionService, PermissionService>();
             services.AddSingleton<ILogService, LogService>();
             services.AddSingleton<ILogQueryService, LogQueryService>();
+
+            // 注册窗体
             services.AddScoped<LoginForm>();
             services.AddScoped<MainForm>();
+            services.AddScoped<DashboardForm>();
             services.AddScoped<UserManagementForm>();
             services.AddScoped<LogViewerForm>();
+            services.AddScoped<RoleManagementForm>();
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)

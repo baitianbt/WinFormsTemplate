@@ -19,14 +19,22 @@ namespace YourSolution.WinForm.Forms
 
         private void InitializeMenu()
         {
+            // 首页
+            var dashboardNode = treeViewMenu.Nodes.Add("首页");
+            dashboardNode.Tag = "DASHBOARD";
+
             // 系统管理
             var systemNode = treeViewMenu.Nodes.Add("系统管理");
             systemNode.Tag = "SYSTEM";
             systemNode.Nodes.Add("用户管理").Tag = "USER_MANAGEMENT";
+            systemNode.Nodes.Add("角色管理").Tag = "ROLE_MANAGEMENT";
             systemNode.Nodes.Add("日志查看").Tag = "LOG_VIEWER";
             
             // 展开所有节点
             treeViewMenu.ExpandAll();
+
+            // 默认选中首页
+            treeViewMenu.SelectedNode = dashboardNode;
         }
 
         private void treeViewMenu_AfterSelect(object sender, TreeViewEventArgs e)
@@ -36,8 +44,14 @@ namespace YourSolution.WinForm.Forms
             Form form = null;
             switch (e.Node.Tag.ToString())
             {
+                case "DASHBOARD":
+                    form = Program.ServiceProvider.GetRequiredService<DashboardForm>();
+                    break;
                 case "USER_MANAGEMENT":
                     form = Program.ServiceProvider.GetRequiredService<UserManagementForm>();
+                    break;
+                case "ROLE_MANAGEMENT":
+                    form = Program.ServiceProvider.GetRequiredService<RoleManagementForm>();
                     break;
                 case "LOG_VIEWER":
                     form = Program.ServiceProvider.GetRequiredService<LogViewerForm>();
@@ -59,7 +73,7 @@ namespace YourSolution.WinForm.Forms
                 form.Show();
 
                 // 更新状态栏
-                labelStatus.Text = $"当前位置：{e.Node.Parent.Text} > {e.Node.Text}";
+                labelStatus.Text = $"当前位置：{e.Node.Parent?.Text} > {e.Node.Text}";
             }
         }
 
